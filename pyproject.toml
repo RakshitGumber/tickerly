@@ -1,0 +1,7 @@
+[project]
+name = "performance-summarizer"
+version = "0.1.0"
+description = "a basic portfolio summary display app"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
