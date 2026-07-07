@@ -8,10 +8,10 @@ const stooq = new StooqProvider();
 
 // console.log(new Date("06-10-2005")); //mm-dd-yyyy
 
-class Returns {
+export class Returns {
   providers: Array<any>;
 
-  constructor(providers: []) {
+  constructor() {
     this.providers = [nasdaq, yahoo, stooq];
   }
 
