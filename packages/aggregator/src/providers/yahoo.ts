@@ -34,9 +34,7 @@ export class YahooProvider {
       const quotes = result.quotes ?? [];
       const prices: IPrice[] = quotes
         .filter(
-          (
-            q: any,
-          ) =>
+          (q: any) =>
             q.date instanceof Date &&
             q.open != null &&
             q.high != null &&
@@ -62,16 +60,16 @@ export class YahooProvider {
   }
 }
 
-async function main() {
-  const provider = new YahooProvider();
+// async function main() {
+//   const provider = new YahooProvider();
 
-  const history = await provider.fetchHistory(
-    "AAPL", // <-- not APPL
-    new Date("2005-06-10"),
-    new Date(),
-  );
+//   const history = await provider.fetchHistory(
+//     "AAPL", // <-- not APPL
+//     new Date("2005-06-10"),
+//     new Date(),
+//   );
 
-  console.log(history);
-}
+//   console.log(history);
+// }
 
-main();
+// main();
