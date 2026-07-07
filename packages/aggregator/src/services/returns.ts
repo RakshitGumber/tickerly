@@ -1,8 +1,23 @@
-import YahooFinance from "yahoo-finance2";
+import { NasdaqProvider } from "../providers/nasdaq";
+import { StooqProvider } from "../providers/stooq";
+import { YahooProvider } from "../providers/yahoo";
 
-const yahooFinance = new YahooFinance();
+const yahoo = new YahooProvider();
+const nasdaq = new NasdaqProvider();
+const stooq = new StooqProvider();
 
-const quote = await yahooFinance.historical("AAPL");
-const { regularMarketPrice, currency } = quote;
+// console.log(new Date("06-10-2005")); //mm-dd-yyyy
 
-console.log(regularMarketPrice, "\n", currency);
+class Returns {
+  providers: Array<any>;
+
+  constructor(providers: []) {
+    this.providers = [nasdaq, yahoo, stooq];
+  }
+
+  async getReturns(ticker: string, start: Date, end: Date) {
+    this.providers.forEach((provider) => {
+      provider.fetchHistory(ticker, start, end);
+    });
+  }
+}
