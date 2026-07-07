@@ -1,0 +1,12 @@
+{
+  "name": "tickerly",
+  "private": true,
+  "scripts": {
+    "dev:web": "bun --cwd apps/web dev",
+    "dev:api": "bun --cwd apps/api dev"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
