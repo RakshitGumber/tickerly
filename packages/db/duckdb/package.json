@@ -14,6 +14,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "duckdb": "^1.4.4"
+    "duckdb": "^1.4.4",
+    "@tickerly/aggregator": "workspace:*"
   }
 }

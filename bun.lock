@@ -66,6 +66,7 @@
       "name": "@tickerly/duckdb",
       "version": "0.0.1",
       "dependencies": {
+        "@tickerly/aggregator": "workspace:*",
         "duckdb": "^1.4.4",
       },
       "devDependencies": {

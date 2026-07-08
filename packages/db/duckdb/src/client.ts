@@ -47,3 +47,12 @@ export function batchRun(sql: string, paramsMatrix: unknown[][]) {
     });
   });
 }
+
+export async function closeDatabase() {
+  return new Promise<void>((resolve, reject) => {
+    db.close((err) => {
+      if (err) reject(err);
+      else resolve();
+    });
+  });
+}

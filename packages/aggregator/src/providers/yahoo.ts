@@ -1,9 +1,8 @@
 import YahooFinance from "yahoo-finance2";
-import type { IProviderPrice } from "../types";
 
 const yahooFinance = new YahooFinance();
 
-interface IPrice {
+export interface IProviderPrice {
   date: Date;
   open: number;
   high: number;
@@ -11,12 +10,13 @@ interface IPrice {
   close: number;
   volume: number;
 }
-export class YahooProvider implements IProviderPrice {
+
+export class YahooProvider {
   async fetchHistory(
     ticker: string,
     start: Date,
     end: Date,
-  ): Promise<IPrice[]> {
+  ): Promise<IProviderPrice[]> {
     try {
       const chart = await yahooFinance.chart(ticker, {
         period1: start,
@@ -24,13 +24,9 @@ export class YahooProvider implements IProviderPrice {
         interval: "1d",
       });
 
-      // chart() can theoretically return an array, normalize it.
       const result = Array.isArray(chart) ? chart[0] : chart;
 
-      if (!result) {
-        console.warn(`No chart data returned for ${ticker}`);
-        return [];
-      }
+      if (!result?.quotes) return [];
 
       return result.quotes
         .filter(
@@ -57,17 +53,3 @@ export class YahooProvider implements IProviderPrice {
     }
   }
 }
-
-// async function main() {
-//   const provider = new YahooProvider();
-
-//   const history = await provider.fetchHistory(
-//     "AAPL", // <-- not APPL
-//     new Date("2005-06-10"),
-//     new Date(),
-//   );
-
-//   console.log(history);
-// }
-
-// main();
