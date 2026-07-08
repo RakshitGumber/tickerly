@@ -8,9 +8,16 @@ const yahoo = new YahooProvider();
 
 // console.log(new Date("06-10-2005")); //mm-dd-yyyy
 
-interface IReturn {
+export interface IPrice {
+  ticker: string;
   date: Date;
-  returns: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+
+  adjustedClose?: number;
+  volume: number;
 }
 export class Returns {
   providers: Array<YahooProvider>;
@@ -20,7 +27,7 @@ export class Returns {
     this.providers = [yahoo];
   }
 
-  async getReturns(ticker: string, start: Date, end: Date): Promise<IReturn[]> {
+  async getReturns(ticker: string, start: Date, end: Date): Promise<IPrice[]> {
     const data = await Promise.all(
       this.providers.map((provider) =>
         provider.fetchHistory(ticker, start, end),
@@ -29,8 +36,13 @@ export class Returns {
     const prices = data.flat();
 
     return prices.map((d) => ({
+      ticker: ticker,
       date: d.date,
-      returns: (d.close - d.open) / d.open,
+      open: d.open,
+      high: d.high,
+      low: d.low,
+      close: d.close,
+      volume: d.volume,
     }));
   }
 }
