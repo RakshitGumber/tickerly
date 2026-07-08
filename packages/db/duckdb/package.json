@@ -1,0 +1,16 @@
+{
+  "name": "@tickerly/duckdb",
+  "module": "./src/index.ts",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "duckdb": "^1.4.4"
+  }
+}
