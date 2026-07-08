@@ -1,0 +1,20 @@
+{
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.pdf": "default",
+    "*.sqlite": "sqlite-viewer.view",
+    "*.parquet": "duckdb.dataFileViewer",
+    "*.csv": "duckdb.dataFileViewer",
+    "*.tsv": "duckdb.dataFileViewer",
+    "*.xlsx": "duckdb.dataFileViewer"
+  },
+  "duckdb.databases": [
+    {
+      "alias": "market",
+      "type": "file",
+      "path": "d:\\Projects\\performance_summarizer\\packages\\db\\duckdb\\data\\market.duckdb",
+      "attached": false
+    }
+  ],
+  "duckdb.defaultDatabase": "market"
+}

@@ -1,16 +1,21 @@
 import duckdb from "duckdb";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const dbPath = path.join(import.meta.dir, "../data/market.duckdb");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const dbPath = path.join(__dirname, "../data/market.duckdb");
 
 export const db = new duckdb.Database(dbPath);
 
-export function query<T = any>(
-  sql: string,
-  params: unknown[] = [],
-): Promise<T[]> {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
+export function query<T>(sql: string, params: unknown[] = []) {
+  return new Promise<T[]>((resolve, reject) => {
+    const stmt = db.prepare(sql);
+
+    stmt.all(...params, (err, rows) => {
+      stmt.finalize();
+
       if (err) return reject(err);
 
       resolve(rows as T[]);
@@ -18,9 +23,13 @@ export function query<T = any>(
   });
 }
 
-export function run(sql: string, params: unknown[] = []): Promise<void> {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, (err) => {
+export function run(sql: string, params: unknown[] = []) {
+  return new Promise<void>((resolve, reject) => {
+    const stmt = db.prepare(sql);
+
+    stmt.run(...params, (err) => {
+      stmt.finalize();
+
       if (err) return reject(err);
 
       resolve();
