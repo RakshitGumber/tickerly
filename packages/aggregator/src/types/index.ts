@@ -13,6 +13,4 @@ export interface DailyReturn {
   source: "yahoo" | "nasdaq" | "stooq";
 }
 
-export interface MarketProvider {
-  fetchHistory(ticker: string, start: Date, end: Date): Promise<DailyReturn[]>;
-}
+export interface IProviderPrice {}

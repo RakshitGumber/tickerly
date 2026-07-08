@@ -36,3 +36,14 @@ export function run(sql: string, params: unknown[] = []) {
     });
   });
 }
+
+export function batchRun(sql: string, paramsMatrix: unknown[][]) {
+  return new Promise<void>((resolve, reject) => {
+    const stmt = db.prepare(sql);
+    stmt.run(paramsMatrix, (err) => {
+      stmt.finalize();
+      if (err) return reject(err);
+      resolve();
+    });
+  });
+}

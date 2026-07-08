@@ -1,4 +1,5 @@
 import YahooFinance from "yahoo-finance2";
+import type { IProviderPrice } from "../types";
 
 const yahooFinance = new YahooFinance();
 
@@ -10,7 +11,7 @@ interface IPrice {
   close: number;
   volume: number;
 }
-export class YahooProvider {
+export class YahooProvider implements IProviderPrice {
   async fetchHistory(
     ticker: string,
     start: Date,
@@ -31,8 +32,7 @@ export class YahooProvider {
         return [];
       }
 
-      const quotes = result.quotes ?? [];
-      const prices: IPrice[] = quotes
+      return result.quotes
         .filter(
           (q: any) =>
             q.date instanceof Date &&
@@ -51,8 +51,6 @@ export class YahooProvider {
           volume: q.volume,
         }))
         .sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
-
-      return prices;
     } catch (error) {
       console.error(`Yahoo request failed for ${ticker}:`, error);
       return [];
