@@ -5,7 +5,7 @@ export const Navbar = () => {
   const { setTicker } = useTicker((state) => state);
 
   return (
-    <nav className="bg-neutral-primary relative w-full z-20 top-0 inset-s-0 border-b border-default">
+    <nav className="bg-panel-color relative w-full z-20 top-0 inset-s-0 border-b border-border-color">
       <div className="max-w-6xl flex flex-wrap items-center justify-between mx-auto px-8 py-2">
         <a
           href="https://flowbite.com/"
@@ -66,7 +66,7 @@ export const Navbar = () => {
             <input
               type="text"
               id="input-group-1"
-              className="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-2.5 shadow-xs placeholder:text-body"
+              className="block w-full ps-9 pe-3 py-2.5  border border-border-color text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-2.5 shadow-xs placeholder:text-body"
               placeholder="Search"
               onChange={(e) => setTicker(e.target.value)}
             />
