@@ -20,7 +20,7 @@ export const Navbar = () => {
             aria-expanded="false"
             className="flex items-center justify-center md:hidden text-body hover:text-heading bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-2 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm w-10 h-10 focus:outline-none"
           >
-            <svg
+            {/* <svg
               className="w-6 h-6"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export const Navbar = () => {
                 stroke-width="2"
                 d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
               />
-            </svg>
+            </svg> */}
             <span className="sr-only">Search</span>
           </button>
           <label htmlFor="input-group-1" className="sr-only">
@@ -43,7 +43,7 @@ export const Navbar = () => {
           </label>
           <div className="relative hidden md:block">
             <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
-              <svg
+              {/* <svg
                 className="w-4 h-4 text-body"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@ export const Navbar = () => {
                   stroke-width="2"
                   d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
                 />
-              </svg>
+              </svg> */}
             </div>
             <input
               type="text"
@@ -75,7 +75,7 @@ export const Navbar = () => {
             aria-expanded="false"
           >
             <span className="sr-only">Open main menu</span>
-            <svg
+            {/* <svg
               className="w-6 h-6"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ export const Navbar = () => {
                 stroke-width="2"
                 d="M5 7h14M5 12h14M5 17h14"
               />
-            </svg>
+            </svg> */}
           </button>
         </div>
         <div
@@ -99,7 +99,7 @@ export const Navbar = () => {
         >
           <div className="relative mt-3 md:hidden">
             <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
-              <svg
+              {/* <svg
                 className="w-4 h-4 text-body"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ export const Navbar = () => {
                   stroke-width="2"
                   d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
                 />
-              </svg>
+              </svg> */}
             </div>
             <input
               type="text"

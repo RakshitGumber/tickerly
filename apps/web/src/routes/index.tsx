@@ -1,12 +1,14 @@
+import { useEffect } from "react";
 import { Navbar } from "../components/Navbar";
+import { fetchStatus } from "../api";
 
 export default function Home() {
+  useEffect(() => {
+    fetchStatus();
+  }, []);
   return (
     <div className="flex flex-col gap-8">
       <Navbar />
-      {/* <main className="max-6xl mx-auto">
-        <h2 className="text-2xl">Search</h2>
-      </main> */}
     </div>
   );
 }
