@@ -9,5 +9,5 @@ export const fetchStatus = async () => {
 export const fetchReturns = async (ticker: string) => {
   const data = await fetch(`${url}/prices/${ticker}`);
   const content = await data.json();
-  return content.data;
+  return content;
 };

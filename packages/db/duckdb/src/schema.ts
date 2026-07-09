@@ -1,4 +1,5 @@
-import { run } from "./client";
+import type { IPrice } from "@tickerly/aggregator";
+import { db, run } from "./client";
 
 export async function createTables() {
   await run(`
@@ -55,4 +56,96 @@ export async function insertPrices(prices: Array<any>) {
 
   // 3. Execute as a single raw query (no parameter array!)
   await run(sql);
+}
+
+// export async function hasTicker(ticker: string): Promise<boolean> {
+//   const sql = `
+//     SELECT EXISTS(
+//       SELECT 1
+//       FROM prices
+//       WHERE ticker = ?
+//     ) AS exists;
+//   `;
+
+//   return new Promise((resolve, reject) => {
+//     db.get(sql, ticker, (err, row: any) => {
+//       if (err) return reject(err);
+
+//       resolve(Boolean(row.exists));
+//     });
+//   });
+// }
+
+export async function getPrices(
+  ticker: string,
+  start: Date,
+  end: Date,
+): Promise<IPrice[]> {
+  const sql = `
+    SELECT
+      ticker,
+      date,
+      open,
+      high,
+      low,
+      close,
+      adjusted_close,
+      volume
+    FROM prices
+    WHERE ticker = ?
+      AND date BETWEEN ? AND ?
+    ORDER BY date;
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.all(
+      sql,
+      ticker,
+      start.toISOString().slice(0, 10),
+      end.toISOString().slice(0, 10),
+      (err, rows: any[]) => {
+        if (err) return reject(err);
+
+        resolve(
+          rows.map((r) => ({
+            ticker: r.ticker,
+            date: new Date(r.date),
+            open: Number(r.open),
+            high: Number(r.high),
+            low: Number(r.low),
+            close: Number(r.close),
+            adjustedClose:
+              r.adjusted_close == null ? undefined : Number(r.adjusted_close),
+            volume: Number(r.volume),
+          })),
+        );
+      },
+    );
+  });
+}
+
+// export async function getLatestDate(ticker: string): Promise<Date | null> {
+//   const sql = `
+//     SELECT MAX(date) AS latest
+//     FROM prices
+//     WHERE ticker = ?;
+//   `;
+
+//   return new Promise((resolve, reject) => {
+//     db.get(sql, ticker, (err, row: any) => {
+//       if (err) return reject(err);
+
+//       resolve(row?.latest ? new Date(row.latest) : null);
+//     });
+//   });
+// }
+
+export async function deleteTicker(ticker: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    db.run(`DELETE FROM prices WHERE ticker = ?`, ticker, (err) => {
+      if (err) return reject(err);
+
+      resolve();
+    });
+  });
 }
