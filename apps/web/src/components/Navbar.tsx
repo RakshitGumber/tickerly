@@ -1,9 +1,12 @@
 import { Link } from "../Router";
+import { useTicker } from "../store/useTicker";
 
 export const Navbar = () => {
+  const { setTicker } = useTicker((state) => state);
+
   return (
-    <nav className="bg-neutral-primary fixed w-full z-20 top-0 inset-s-0 border-b border-default">
-      <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-2">
+    <nav className="bg-neutral-primary relative w-full z-20 top-0 inset-s-0 border-b border-default">
+      <div className="max-w-6xl flex flex-wrap items-center justify-between mx-auto px-8 py-2">
         <a
           href="https://flowbite.com/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -42,7 +45,7 @@ export const Navbar = () => {
             Your Email
           </label>
           <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+            <div className="inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
               {/* <svg
                 className="w-4 h-4 text-body"
                 aria-hidden="true"
@@ -65,6 +68,7 @@ export const Navbar = () => {
               id="input-group-1"
               className="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-2.5 shadow-xs placeholder:text-body"
               placeholder="Search"
+              onChange={(e) => setTicker(e.target.value)}
             />
           </div>
           <button
@@ -98,7 +102,7 @@ export const Navbar = () => {
           id="navbar-search"
         >
           <div className="relative mt-3 md:hidden">
-            <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+            <div className="inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
               {/* <svg
                 className="w-4 h-4 text-body"
                 aria-hidden="true"
