@@ -1,4 +1,4 @@
-const url = "/api/";
+const url = "/api";
 
 export const fetchStatus = async () => {
   const data = await fetch(url);
@@ -6,6 +6,8 @@ export const fetchStatus = async () => {
   console.log(content);
 };
 
-// const fetchReturns = async () => {
-//     await
-// };
+export const fetchReturns = async (ticker: string) => {
+  const data = await fetch(`${url}/prices/${ticker}`);
+  const content = await data.json();
+  return content.data;
+};
