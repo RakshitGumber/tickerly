@@ -43,19 +43,26 @@ app.use('*all', async (req, res) => {
     let template
     /** @type {import('./src/entry-server.ts').render} */
     let render
+    /** @type {import('./src/entry-server.ts').loadRouteData} */
+    let loadRouteData
     if (!isProduction) {
       // Always read fresh template in development
       template = await fs.readFile('./index.html', 'utf-8')
       template = await vite.transformIndexHtml(url, template)
-      render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render
+      const mod = await vite.ssrLoadModule('/src/entry-server.tsx')
+      render = mod.render
+      loadRouteData = mod.loadRouteData
     } else {
       template = templateHtml
-      render = (await import('./dist/server/entry-server.js')).render
+      const mod = await import('./dist/server/entry-server.js')
+      render = mod.render
+      loadRouteData = mod.loadRouteData
     }
 
     let didError = false
 
-    const { pipe, abort } = render(url, {
+    const routerState = await loadRouteData(url)
+    const { pipe, abort } = render(routerState, {
       onShellError() {
         res.status(500)
         res.set({ 'Content-Type': 'text/html' })

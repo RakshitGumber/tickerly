@@ -13,7 +13,7 @@
       "alias": "market",
       "type": "file",
       "path": "d:\\Projects\\performance_summarizer\\packages\\db\\duckdb\\data\\market.duckdb",
-      "attached": true
+      "attached": false
     }
   ],
   "duckdb.defaultDatabase": "market"
